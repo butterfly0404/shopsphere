@@ -20,8 +20,8 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 - [x] `git status` shows no `node_modules`, `dist`, `.pem` or `.env` files staged.
 
 ## Phase 2 – GitHub
-- [ ] Create the public repo and push `main` (docs/05 A3).
-- [ ] Confirm on GitHub that `Jenkinsfile`, `Dockerfile`, `k8s/`, `control-panel/`, `infra/` are present.
+- [x] Create the public repo and push `main` (docs/05 A3).
+- [x] Confirm on GitHub that `Jenkinsfile`, `Dockerfile`, `k8s/`, `control-panel/`, `infra/` are present.
 
 ## Phase 3 – AWS server (student clicks, then you)
 - [ ] Give the student docs/05 A4 steps; wait for the IP and PEM path.
