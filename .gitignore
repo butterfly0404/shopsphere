@@ -1,0 +1,9 @@
+node_modules/
+dist/
+backend/public/
+.env
+*.log
+.DS_Store
+
+*.pem
+*.key

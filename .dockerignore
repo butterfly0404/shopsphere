@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+backend/public
+.git
+.gitignore
+Jenkinsfile
+k8s
+infra
+control-panel
+docs
+*.md
+**/.env
+**/npm-debug.log

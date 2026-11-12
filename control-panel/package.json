@@ -1,0 +1,10 @@
+{
+  "name": "shopsphere-control-panel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "One-click Deploy Now page that triggers the Jenkins pipeline. No dependencies; needs Node 18+.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
