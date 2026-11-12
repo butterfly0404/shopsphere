@@ -41,7 +41,7 @@
 
 ### Infrastructure
 - [ ] EC2 instance running in us-east-1, security group allows 22, 80, 8080, 5000
-- [ ] `sudo kubectl get nodes` → Ready
+- [x] `sudo kubectl get nodes` → Ready
 - [ ] Jenkins reachable at `http://<ip>:8080`, plugin **Pipeline: Stage View** installed
 - [ ] Jenkins credential `dockerhub-creds` exists; job `shopsphere` uses "Pipeline script from SCM"
 

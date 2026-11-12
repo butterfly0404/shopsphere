@@ -24,11 +24,11 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 - [x] Confirm on GitHub that `Jenkinsfile`, `Dockerfile`, `k8s/`, `control-panel/`, `infra/` are present.
 
 ## Phase 3 – AWS server (student clicks, then you)
-- [ ] Give the student docs/05 A4 steps; wait for the IP and PEM path.
-- [ ] Test SSH: `ssh -i <pem> ubuntu@<ip> "uname -a"`. (Windows: use the built-in OpenSSH in PowerShell. If it says the
+- [x] Give the student docs/05 A4 steps; wait for the IP and PEM path.
+- [x] Test SSH: `ssh -i <pem> ubuntu@<ip> "uname -a"`. (Windows: use the built-in OpenSSH in PowerShell. If it says the
       key permissions are too open, run `icacls <pem> /inheritance:r /grant:r "%USERNAME%:R"`.)
-- [ ] Run `infra/setup-server.sh` on the server (docs/05 A5). Verify node Ready, Jenkins and Docker active.
-- [ ] Give the student the Jenkins initial admin password.
+- [x] Run `infra/setup-server.sh` on the server (docs/05 A5). Verify node Ready, Jenkins and Docker active.
+- [x] Give the student the Jenkins initial admin password.
 
 ## Phase 4 – Jenkins (student clicks)
 - [ ] Give the student docs/05 A6 steps 1–7; wait for "done".
