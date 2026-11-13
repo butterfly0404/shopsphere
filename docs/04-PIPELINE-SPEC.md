@@ -27,7 +27,7 @@
 | Push Image | deploy | login with credential `dockerhub-creds`, push both tags, logout | stop |
 | Deploy | deploy | apply namespace, secret, mongo; `sed IMAGE_PLACEHOLDER` into app.yaml and apply; apply ingress; annotate change-cause | `post failure` → `rollout undo` |
 | Health Check | deploy | `rollout status` mongo + app; poll `APP_HEALTH_URL` until it contains the new tag (30 × 3 s) | `post failure` → `rollout undo` |
-| Rollback | rollback | `rollout undo`, `rollout status`, print history + health | fail |
+| Rollback | rollback | `checkout scm` (records the commit so the next push is still detected), `rollout undo`, `rollout status`, print history + health | fail |
 
 `post`: success → description `"vN live at http://<ip>"`; failure → undo only if `DEPLOY_STARTED == 'true'`;
 always → remove test image, `docker image prune -f`.

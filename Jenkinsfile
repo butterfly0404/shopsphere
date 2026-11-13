@@ -116,6 +116,9 @@ pipeline {
     stage('Rollback') {
       when { expression { !isDeploy() } }
       steps {
+        // Record the current Git commit in this build too. Jenkins compares new pushes with the commit of the
+        // LAST build; without this, a push right after a rollback would be ignored ("No changes").
+        checkout scm
         sh '''
           kubectl -n ${NAMESPACE} rollout undo deployment/shopsphere
           kubectl -n ${NAMESPACE} rollout status deployment/shopsphere --timeout=180s

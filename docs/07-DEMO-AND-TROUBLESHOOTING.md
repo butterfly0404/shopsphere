@@ -42,6 +42,7 @@ health check fails? (Automatic `rollout undo`.) Why two replicas? (Zero-downtime
 | Nothing opens at all | new session, IP changed / instance stopped | Use the new IP; run `infra/new-session.sh` |
 | GitHub webhook red cross | old IP, port 8080 closed, missing trailing `/` | Update URL to `http://<ip>:8080/github-webhook/` |
 | Push doesn't start a build | job trigger not ticked | Job → Configure → tick "GitHub hook trigger for GITScm polling" (pollSCM still catches it within 5 min) |
+| Push right after a Rollback is ignored ("No changes" in Jenkins → job → Git Polling Log) | last build recorded no commit (old Jenkinsfile) | Fixed: the Rollback stage now runs `checkout scm`. If it happens, click Deploy Now once |
 | Panel: "Jenkins refused the request: HTTP 401/403" | bad user/token | Re-run `install-control-panel.sh` with a fresh API token |
 | Panel shows no stages | Stage View plugin missing | Install **Pipeline: Stage View** |
 | Panel: "Cannot reach Jenkins" | Jenkins still starting | Wait 1–2 min; `systemctl status jenkins` |
