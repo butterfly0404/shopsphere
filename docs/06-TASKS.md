@@ -47,7 +47,7 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 - [x] Git trigger: change the hero subtitle, push, build starts without a click, footer version goes up.
 - [x] Safety: change `toBe(847)` to `toBe(848)` in `backend/tests/api.test.js`, push → pipeline stops at **Test**,
       `http://<ip>` still serves the previous version. Revert, push → green again.
-- [ ] Rollback: click **Rollback to previous version** on the panel → footer version goes back.
+- [x] Rollback: click **Rollback to previous version** on the panel → footer version goes back.
 - [ ] Persistence: place an order, deploy again, the order is still in My Orders.
 - [ ] Scaling demo: `sudo kubectl -n shopsphere scale deployment shopsphere --replicas=3`, refresh the site to see
       different pod names, then scale back to 2.

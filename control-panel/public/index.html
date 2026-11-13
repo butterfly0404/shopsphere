@@ -270,7 +270,9 @@ function onFinished(build) {
       tick();
       countdownTimer = setInterval(tick, 1000);
     } else {
-      $('okText').textContent = 'The store is running the new version.';
+      $('okText').textContent = build.action === 'rollback'
+        ? 'The store is back on the previous version.'
+        : 'The store is running the new version.';
     }
   } else {
     const failed = (build.stages || []).find((s) => ['FAILED', 'UNSTABLE', 'ABORTED'].includes(s.status));

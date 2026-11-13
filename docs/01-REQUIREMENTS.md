@@ -57,7 +57,7 @@
 ### Control panel
 - [x] `http://<ip>/deploy/` (and backup `http://<ip>:5000`) loads, shows "Live" status, version and pod
 - [x] **Deploy Now** → stages light up live → success banner → site opens automatically after 5 s
-- [ ] **Rollback to previous version** works and the footer version goes back
+- [x] **Rollback to previous version** works and the footer version goes back
 - [ ] After a new Learner Lab session, `sudo bash infra/new-session.sh` brings everything back with the new IP
 
 ### Documentation
