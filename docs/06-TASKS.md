@@ -31,16 +31,16 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 - [x] Give the student the Jenkins initial admin password.
 
 ## Phase 4 – Jenkins (student clicks)
-- [ ] Give the student docs/05 A6 steps 1–7; wait for "done".
-- [ ] Ask the student for the Jenkins username and API token (A6.8) in the chat.
-- [ ] Watch the first build: `curl -s -u <u>:<t> http://<ip>:8080/job/shopsphere/lastBuild/api/json?tree=building,result`
+- [x] Give the student docs/05 A6 steps 1–7; wait for "done".
+- [x] Ask the student for the Jenkins username and API token (A6.8) in the chat.
+- [x] Watch the first build: `curl -s -u <u>:<t> http://<ip>:8080/job/shopsphere/lastBuild/api/json?tree=building,result`
       and the console text. Fix any failure (docs/07) and re-trigger:
       `curl -X POST -u <u>:<t> http://<ip>:8080/job/shopsphere/build`.
-- [ ] Verify pods, ingress and `http://<ip>` (docs/05 A7).
+- [x] Verify pods, ingress and `http://<ip>` (docs/05 A7).
 
 ## Phase 5 – One-click panel and webhook
 - [ ] Install the control panel (docs/05 A8). Check `/api/config` → `configured: true`, `/api/app` → `up: true`.
-- [ ] Create the GitHub webhook (docs/05 A9). Check delivery: `gh api repos/butterfly0404/shopsphere/hooks/<id>/deliveries --jq '.[0].status_code'` → 200.
+- [x] Create the GitHub webhook (docs/05 A9). Check delivery: `gh api repos/butterfly0404/shopsphere/hooks/<id>/deliveries --jq '.[0].status_code'` → 200.
 - [ ] Student clicks **Deploy Now** on `http://<ip>:5000`; confirm six green stages and auto-open of `http://<ip>`.
 
 ## Phase 6 – Prove every requirement

@@ -21,7 +21,7 @@ Claude Code reads this file. Fill in what you know; leave the rest blank and Cla
 | GitHub repository name | shopsphere | keep it **Public** so Jenkins can read it without a login |
 | GitHub CLI (`gh`) installed and logged in? | yes: logged in as butterfly0404 | if yes, Claude Code can create the repo and webhook for you |
 | Docker Hub username | alishri | already set in the `Jenkinsfile` (alishri/shopsphere) |
-| Jenkins admin username you will create | | you choose it in the Jenkins setup screen |
+| Jenkins admin username you will create | alishri | you choose it in the Jenkins setup screen |
 
 ## Store settings (go into `k8s/secret.yaml`, which is in a public repo: use demo values only)
 
@@ -38,7 +38,7 @@ Claude Code reads this file. Fill in what you know; leave the rest blank and Cla
 | Key pair | vockey |
 | Path to `labsuser.pem` on this laptop | `C:\Users\Alishri\Downloads\labsuser.pem` |
 | EC2 instance ID | i-0964e4f188b229dcd |
-| Public IP **this session** (changes every session) | 32.200.154.157 (session of 13-11-2026) |
+| Public IP **this session** (changes every session) | 100.53.212.228 |
 
 ## Your laptop
 
