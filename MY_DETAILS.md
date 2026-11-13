@@ -38,7 +38,7 @@ Claude Code reads this file. Fill in what you know; leave the rest blank and Cla
 | Key pair | vockey |
 | Path to `labsuser.pem` on this laptop | `C:\Users\Alishri\Downloads\labsuser.pem` |
 | EC2 instance ID | i-0964e4f188b229dcd |
-| Public IP **this session** (changes every session) | 100.53.212.228 |
+| Public IP **this session** (changes every session) | 3.80.220.147 |
 
 ## Your laptop
 

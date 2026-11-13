@@ -40,7 +40,7 @@
 - [ ] Footer shows Version `vN`, pod name and "Database up"
 
 ### Infrastructure
-- [ ] EC2 instance running in us-east-1, security group allows 22, 80, 8080, 5000
+- [x] EC2 instance running in us-east-1, security group allows 22, 80, 8080, 5000
 - [x] `sudo kubectl get nodes` → Ready
 - [x] Jenkins reachable at `http://<ip>:8080`, plugin **Pipeline: Stage View** installed
 - [x] Jenkins credential `dockerhub-creds` exists; job `shopsphere` uses "Pipeline script from SCM"
@@ -49,7 +49,7 @@
 - [x] Build runs all six stages green: Checkout, Test, Build Image, Push Image, Deploy, Health Check
 - [x] Docker Hub shows `shopsphere:vN` and `:latest`
 - [x] `sudo kubectl -n shopsphere get pods` → 2 × shopsphere Running, 1 × mongo Running
-- [ ] `http://<ip>` opens the shop (port 80) and `http://<ip>:30080` also works
+- [x] `http://<ip>` opens the shop (port 80) and `http://<ip>:30080` also works
 - [x] GitHub webhook shows a green tick; a `git push` starts a build without any click
 - [ ] A deliberately failing test stops the pipeline at **Test** and the live site keeps working
 - [ ] Data survives a redeploy (orders still there after a new version rolls out)
