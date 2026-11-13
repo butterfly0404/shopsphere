@@ -26,7 +26,7 @@ export default function Home() {
           <div className="hero-copy">
             <span className="eyebrow">New season · Free shipping over ₹999</span>
             <h1>Everything you love,<br />delivered to your door.</h1>
-            <p>Electronics, fashion, accessories and home essentials, hand-picked for quality and priced fairly.</p>
+            <p>Electronics, fashion, accessories and home essentials, hand-picked for quality, priced fairly and delivered across India.</p>
             <div className="hero-cta">
               <Link to="/shop" className="btn btn-primary btn-lg">Shop now</Link>
               <Link to="/shop?sort=price-asc" className="btn btn-ghost btn-lg">Browse deals</Link>
