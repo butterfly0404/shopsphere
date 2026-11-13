@@ -4,7 +4,7 @@
 
 - [ ] Rehearse the full script below at least twice.
 - [ ] 20 min before: Start Lab → instance running → `sudo bash infra/new-session.sh` (all `[OK]`) → update webhook.
-- [ ] Open in browser tabs: `http://<ip>:5000` (panel), `http://<ip>` (shop), `http://<ip>:8080` (Jenkins),
+- [ ] Open in browser tabs: `http://<ip>/deploy/` (panel), `http://<ip>` (shop), `http://<ip>:8080` (Jenkins),
       the GitHub repo, Docker Hub repository page, an SSH terminal.
 - [ ] Have the "failing test" edit ready but not pushed.
 
@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | 1 | "ShopSphere is a dynamic e-commerce app deployed by a fully automated CI/CD pipeline on AWS." | Show the shop at `http://<ip>` |
 | 2 | "Mandatory: AWS, Git, Jenkins. Our two tools: Docker and Kubernetes." | Show the EC2 instance, GitHub repo, `Jenkinsfile` |
-| 3 | "One click runs everything." | Faculty open `http://<ip>:5000` and click **Deploy Now** |
+| 3 | "One click runs everything." | Faculty open `http://<ip>/deploy/` and click **Deploy Now** |
 | 4 | Explain each stage as it turns green | Checkout → Test (16 tests) → Build Image → Push Image → Deploy → Health Check |
 | 5 | "The site opens by itself when the health check passes." | Footer shows new **Version vN** and **Pod** name |
 | 6 | "Images are versioned on Docker Hub." | Show tag `vN` on Docker Hub |

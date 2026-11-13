@@ -61,5 +61,5 @@ When you finish working, click **End Lab** in the Learner Lab page to save credi
 ## The links you will end up with
 
 - Shop: `http://<ip>`
-- Deploy Now control panel (give this to your faculty): `http://<ip>:5000`
+- Deploy Now control panel (give this to your faculty): `http://<ip>/deploy/` (backup: `http://<ip>:5000`)
 - Jenkins: `http://<ip>:8080`

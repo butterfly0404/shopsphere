@@ -21,7 +21,7 @@ Read these before doing anything:
 | R6 | Dynamic application, not static | Express API + MongoDB: login, catalogue, cart, orders, admin |
 | R7 | Pipeline must be triggered from Git | GitHub webhook → Jenkins `githubPush()` |
 | R8 | Open the app directly by IP | `http://<public-ip>` (port 80 via k3s Traefik Ingress). `:30080` NodePort is a backup |
-| R9 | One button for faculty starts everything and opens the site | Control panel `http://<ip>:5000` → **Deploy Now** → pipeline → auto-opens the site |
+| R9 | One button for faculty starts everything and opens the site | Control panel `http://<ip>/deploy/` (port 80; `:5000` backup) → **Deploy Now** → pipeline → auto-opens the site |
 | R10 | Good-looking but not over-animated frontend | React UI in `frontend/`, subtle hover effects only |
 
 ## Fixed decisions (do not change without the student asking)
@@ -43,7 +43,7 @@ backend/           Express API. src/app.js (routes), server.js (startup), seed.j
 backend/tests/     Jest + Supertest (16 tests). Must stay green.
 frontend/          React app. src/pages/*, src/components/*, src/context/AppContext.jsx, src/styles.css
 Dockerfile         stages: frontend, deps, test, runtime
-k8s/               namespace, secret, mongo (PVC), app (Deployment x2 + NodePort 30080), ingress (port 80)
+k8s/               namespace, secret, mongo (PVC), app (Deployment x2 + NodePort 30080), ingress (port 80), panel-ingress (/deploy/ → panel)
 Jenkinsfile        CI/CD pipeline
 control-panel/     Deploy Now page: server.js + public/index.html
 infra/             setup-server.sh (one-time install), install-control-panel.sh, new-session.sh (every lab session)
@@ -98,5 +98,5 @@ To run repo scripts on the server: `git clone` the student's repo there (or `git
 ## Definition of done
 
 All boxes in `docs/01-REQUIREMENTS.md` → "Acceptance checklist" are ticked, verified on the real server:
-the faculty can open `http://<ip>:5000`, click **Deploy Now**, watch six green stages, and land on the live shop
+the faculty can open `http://<ip>/deploy/`, click **Deploy Now**, watch six green stages, and land on the live shop
 at `http://<ip>`; a `git push` deploys by itself; a failing test blocks the deploy; rollback works.

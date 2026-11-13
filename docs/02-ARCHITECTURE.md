@@ -13,7 +13,7 @@ of the app plus MongoDB and exposes the shop on port 80 through the built-in Tra
 flowchart LR
   dev[Developer laptop] -- git push --> gh[GitHub repo]
   gh -- webhook :8080/github-webhook/ --> jenkins
-  faculty[Faculty browser] -- Deploy Now :5000 --> panel[Control panel]
+  faculty[Faculty browser] -- Deploy Now :80/deploy/ --> panel[Control panel :5000]
   panel -- REST API + API token --> jenkins[Jenkins :8080]
   jenkins -- docker build / push --> hub[(Docker Hub)]
   jenkins -- kubectl apply --> k3s
@@ -37,9 +37,9 @@ flowchart LR
 | Port | Service | Who uses it |
 | --- | --- | --- |
 | 22 | SSH | Student / Claude Code |
-| 80 | Shop website (Traefik Ingress) | Everyone: **the main address** |
+| 80 | Shop website (Traefik Ingress) and Deploy Now panel at `/deploy/` | Everyone: **the main address** |
 | 8080 | Jenkins (UI + GitHub webhook) | Student, GitHub |
-| 5000 | Deploy Now control panel | Faculty |
+| 5000 | Deploy Now control panel (direct, backup) | Faculty, if port 5000 is not blocked |
 | 30080 | Shop website (NodePort, backup) | Optional |
 
 ## Kubernetes objects (namespace `shopsphere`)
@@ -51,6 +51,7 @@ flowchart LR
 | `k8s/mongo.yaml` | PVC 1Gi, Deployment `mongo` (Recreate), Service ClusterIP 27017 | readiness via `mongosh ping` |
 | `k8s/app.yaml` | Deployment `shopsphere` (2 replicas, RollingUpdate maxUnavailable 0), Service NodePort 30080→3000 | readiness `/api/health`, liveness `/api/live`, image placeholder `IMAGE_PLACEHOLDER` |
 | `k8s/ingress.yaml` | Ingress (class `traefik`) | `/` → service `shopsphere:80` |
+| `k8s/panel-ingress.yaml` | Service `shopsphere-panel` (no selector) + Endpoints + Ingress | `/deploy` → server private IP:5000 (the systemd panel). `NODE_IP` filled in by `infra/install-control-panel.sh`; not applied by Jenkins |
 
 ## Server software (installed by `infra/setup-server.sh`)
 

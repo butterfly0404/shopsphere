@@ -41,7 +41,7 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 ## Phase 5 – One-click panel and webhook
 - [ ] Install the control panel (docs/05 A8). Check `/api/config` → `configured: true`, `/api/app` → `up: true`.
 - [x] Create the GitHub webhook (docs/05 A9). Check delivery: `gh api repos/butterfly0404/shopsphere/hooks/<id>/deliveries --jq '.[0].status_code'` → 200.
-- [ ] Student clicks **Deploy Now** on `http://<ip>:5000`; confirm six green stages and auto-open of `http://<ip>`.
+- [ ] Student clicks **Deploy Now** on `http://<ip>/deploy/`; confirm six green stages and auto-open of `http://<ip>`.
 
 ## Phase 6 – Prove every requirement
 - [ ] Git trigger: change the hero subtitle, push, build starts without a click, footer version goes up.

@@ -83,7 +83,9 @@ and fix (see docs/07, Troubleshooting).
 ```bash
 ssh -i <pem> ubuntu@<ip> "cd shopsphere && git pull && sudo JENKINS_USER=<jenkins-user> JENKINS_API_TOKEN=<api-token> bash infra/install-control-panel.sh"
 ```
-Verify `curl -s http://<ip>:5000/api/config` shows `"configured":true`.
+Verify `curl -s http://<ip>/deploy/api/config` shows `"configured":true` (backup: `http://<ip>:5000/api/config`).
+The script also applies `k8s/panel-ingress.yaml`, so the panel opens on port 80 at `http://<ip>/deploy/` (works on networks that block port 5000).
+Re-installing later (e.g. after a `git pull`) needs no token: `sudo bash infra/install-control-panel.sh` reuses the saved one.
 
 ### A9. GitHub webhook [CLAUDE with gh, else YOU]
 - gh: `gh api repos/butterfly0404/shopsphere/hooks -f name=web -F active=true -f 'events[]=push' -f config[url]=http://<ip>:8080/github-webhook/ -f config[content_type]=json`
@@ -91,7 +93,7 @@ Verify `curl -s http://<ip>:5000/api/config` shows `"configured":true`.
   `application/json`, *Just the push event* → Add. A green tick = working.
 
 ### A10. End-to-end test [CLAUDE + YOU]
-1. [YOU] Open `http://<ip>:5000` → **Deploy Now** → six green stages → shop opens automatically.
+1. [YOU] Open `http://<ip>/deploy/` → **Deploy Now** → six green stages → shop opens automatically.
 2. [CLAUDE] Make a small visible change (e.g. hero subtitle in `frontend/src/pages/Home.jsx`), commit, push.
    Confirm a build starts by itself and the footer version increases.
 3. [CLAUDE] Tick the acceptance checklist in `docs/01-REQUIREMENTS.md`.
@@ -103,12 +105,12 @@ Verify `curl -s http://<ip>:5000/api/config` shows `"configured":true`.
 1. [YOU] Learner Lab → **Start Lab** → wait for green → AWS → EC2. The instance starts automatically
    (if it shows *stopped*, select it → **Instance state → Start**). Copy the **new public IP**.
 2. [CLAUDE] `ssh -i <pem> ubuntu@<new-ip> "cd shopsphere && git pull && sudo bash infra/new-session.sh"`
-   All five services should say `[OK]`.
+   All six checks should say `[OK]`. (If SSH is blocked on your network, run the same command in EC2 → instance → Connect → EC2 Instance Connect: `cd ~/shopsphere && git pull && sudo bash infra/new-session.sh`.)
 3. [CLAUDE with gh] update the webhook URL:
    `gh api repos/butterfly0404/shopsphere/hooks --jq '.[0].id'` then
    `gh api -X PATCH repos/butterfly0404/shopsphere/hooks/<id> -f config[url]=http://<new-ip>:8080/github-webhook/ -f config[content_type]=json`
    (without gh: [YOU] edit the webhook in GitHub settings).
-4. New links: shop `http://<new-ip>`, panel `http://<new-ip>:5000`.
+4. New links: shop `http://<new-ip>`, panel `http://<new-ip>/deploy/` (backup `http://<new-ip>:5000`).
 
 ## Part C – Saving credits
 

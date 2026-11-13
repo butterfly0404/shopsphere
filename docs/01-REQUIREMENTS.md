@@ -25,7 +25,7 @@
 | Dynamic app | `backend/` + MongoDB | Register, order, admin changes status, data persists after refresh |
 | Git triggers pipeline | GitHub webhook + `githubPush()` + `pollSCM` backup | Push and watch Jenkins start within seconds |
 | Opens by IP | `k8s/ingress.yaml` (port 80) | Open `http://<ip>` |
-| One-click button | `control-panel/` on port 5000 | Faculty click **Deploy Now**, site opens automatically |
+| One-click button | `control-panel/` at `http://<ip>/deploy/` (port 80 via `k8s/panel-ingress.yaml`; port 5000 backup) | Faculty click **Deploy Now**, site opens automatically |
 | Only tested code ships | `Test` stage, `docker build --target test` | Break a test, push, pipeline stops at Test, site unchanged |
 | Safe releases | RollingUpdate maxUnavailable 0, auto-undo on failure, Rollback button | Click Rollback |
 
@@ -55,7 +55,7 @@
 - [ ] Data survives a redeploy (orders still there after a new version rolls out)
 
 ### Control panel
-- [ ] `http://<ip>:5000` loads, shows "Live" status, version and pod
+- [ ] `http://<ip>/deploy/` (and backup `http://<ip>:5000`) loads, shows "Live" status, version and pod
 - [ ] **Deploy Now** → stages light up live → success banner → site opens automatically after 5 s
 - [ ] **Rollback to previous version** works and the footer version goes back
 - [ ] After a new Learner Lab session, `sudo bash infra/new-session.sh` brings everything back with the new IP

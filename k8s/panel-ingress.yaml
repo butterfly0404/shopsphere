@@ -1,0 +1,52 @@
+# Makes the Deploy Now control panel open on port 80 at http://<server-public-ip>/deploy/
+# Why: some networks (college Wi-Fi) block port 5000. Port 80 is almost never blocked.
+#
+# The panel is NOT a pod: it runs directly on the server as the systemd service "shopsphere-panel" (port 5000),
+# so it keeps working even when a deploy fails. To let Traefik (the k3s Ingress on port 80) reach it, we create
+# a Service WITHOUT a selector plus a manual Endpoints object that points at the server's private IP, port 5000.
+#
+# NODE_IP is a placeholder: infra/install-control-panel.sh (and infra/new-session.sh) replace it with the
+# server's private IP and apply this file. Jenkins does NOT apply it, so do not `kubectl apply -f k8s/` blindly.
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopsphere-panel
+  namespace: shopsphere
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000
+      protocol: TCP
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: shopsphere-panel        # must match the Service name
+  namespace: shopsphere
+subsets:
+  - addresses:
+      - ip: NODE_IP
+    ports:
+      - name: http              # must match the Service port name
+        port: 5000
+        protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shopsphere-panel
+  namespace: shopsphere
+spec:
+  ingressClassName: traefik
+  rules:
+    - http:
+        paths:
+          # Longer prefix than the shop's "/" rule, so Traefik sends /deploy/... here and everything else to the shop.
+          - path: /deploy
+            pathType: Prefix
+            backend:
+              service:
+                name: shopsphere-panel
+                port:
+                  number: 80

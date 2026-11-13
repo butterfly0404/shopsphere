@@ -42,12 +42,19 @@ always → remove test image, `docker image prune -f`.
 ## Control panel contract (`control-panel/`)
 
 Server (`server.js`, Node 22, no dependencies), env from `/etc/shopsphere-panel.env`:
-`PORT=5000`, `JENKINS_URL=http://localhost:8080`, `JENKINS_USER`, `JENKINS_API_TOKEN`, `JOB_NAME=shopsphere`,
+`PORT=5000`, `BASE_PATH=/deploy`, `JENKINS_URL=http://localhost:8080`, `JENKINS_USER`, `JENKINS_API_TOKEN`, `JOB_NAME=shopsphere`,
 `APP_HEALTH_URL=http://localhost/api/health`, `APP_PUBLIC_URL=http://<ip>`, `JENKINS_PUBLIC_URL=http://<ip>:8080`.
+
+Addresses: the panel is published on port 80 at **`http://<ip>/deploy/`** (main address; works on networks that block
+port 5000) and directly at `http://<ip>:5000` (backup). Every endpoint below is served both with and without the
+`BASE_PATH` prefix (e.g. `/deploy/api/config` and `/api/config`); `GET /deploy` redirects to `/deploy/`. The page uses
+relative URLs (`api/...`) so it works under either. Port 80 routing: `k8s/panel-ingress.yaml` = Service
+`shopsphere-panel` without selector (80 → 5000) + Endpoints → the server private IP (`NODE_IP` placeholder) + Ingress
+`/deploy` (Prefix). It is applied by `install-control-panel.sh` and `new-session.sh`, **not** by the Jenkinsfile.
 
 | Endpoint | Purpose |
 | --- | --- |
-| `GET /` | The page |
+| `GET /` (and `/deploy/`) | The page |
 | `GET /api/config` | public URLs, whether credentials are configured |
 | `POST /api/deploy`, `POST /api/rollback` | trigger; returns `{queueId}` from the `Location` header |
 | `GET /api/queue/:id` | `queued` / `started` (+ build number) / `cancelled` |
@@ -63,5 +70,5 @@ The API token never reaches the browser.
 
 ## Per-session script (`infra/new-session.sh`)
 
-Detects the new public IP, rewrites `APP_PUBLIC_URL` / `JENKINS_PUBLIC_URL`, restarts the panel, updates Jenkins'
+Detects the new public IP, rewrites `APP_PUBLIC_URL` / `JENKINS_PUBLIC_URL`, restarts the panel, re-applies `k8s/panel-ingress.yaml`, updates Jenkins'
 URL setting, waits for Jenkins and the shop, prints a service check and the new webhook URL (with `gh api` commands).

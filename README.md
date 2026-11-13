@@ -23,12 +23,12 @@ ShopSphere is a full-stack online store (React + Node.js + MongoDB) delivered by
 | Dynamic application | Accounts, catalogue, cart, checkout, order tracking, admin dashboard, all stored in MongoDB |
 | Automated deployment | No manual step between trigger and live site; health-checked; automatic rollback on failure |
 | Opens by IP address | `http://<server-ip>` |
-| One-click deploy for faculty | Control panel `http://<server-ip>:5000` → **Deploy Now** → live stages → website opens |
+| One-click deploy for faculty | Control panel `http://<server-ip>/deploy/` → **Deploy Now** → live stages → website opens |
 
 ## How it works
 
 ```
-Developer ──git push──▶ GitHub ──webhook──▶ Jenkins ◀──Deploy Now── Control panel (:5000)
+Developer ──git push──▶ GitHub ──webhook──▶ Jenkins ◀──Deploy Now── Control panel (/deploy/)
                                               │
        Checkout → Test → Build Image → Push Image → Deploy → Health Check
                           (Docker)    (Docker Hub)   (Kubernetes)
@@ -53,7 +53,7 @@ The website footer shows the running **version** and **Kubernetes pod**, so ever
 frontend/        React (Vite) store UI
 backend/         Express API, MongoDB models, 16 Jest/Supertest tests
 Dockerfile       multi-stage: frontend build, tests, runtime image
-k8s/             namespace, secret, mongo (+PVC), app (Deployment + NodePort), ingress (port 80)
+k8s/             namespace, secret, mongo (+PVC), app (Deployment + NodePort), ingress (port 80), panel-ingress (/deploy/)
 Jenkinsfile      CI/CD pipeline
 control-panel/   Deploy Now page (Node, no dependencies)
 infra/           setup-server.sh, install-control-panel.sh, new-session.sh
@@ -77,7 +77,7 @@ CLAUDE.md        instructions for Claude Code; START_HERE.md for humans
 | What | Address |
 | --- | --- |
 | Shop | `http://<server-ip>` |
-| Deploy Now control panel | `http://<server-ip>:5000` |
+| Deploy Now control panel | `http://<server-ip>/deploy/` (backup `http://<server-ip>:5000`) |
 | Jenkins | `http://<server-ip>:8080` |
 
 Demo script and troubleshooting: [`docs/07-DEMO-AND-TROUBLESHOOTING.md`](docs/07-DEMO-AND-TROUBLESHOOTING.md).

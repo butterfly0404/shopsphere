@@ -284,7 +284,7 @@ function watchBuild(number) {
   clearTimeout(pollTimer);
   const poll = async () => {
     try {
-      const build = await get(`/api/build/${number}`);
+      const build = await get(`api/build/${number}`);
       renderBuild(build);
       if (build.building) {
         const running = (build.stages || []).find((s) => s.status === 'IN_PROGRESS');
@@ -305,7 +305,7 @@ function watchBuild(number) {
 function watchQueue(queueId) {
   const poll = async () => {
     try {
-      const q = await get(`/api/queue/${queueId}`);
+      const q = await get(`api/queue/${queueId}`);
       if (q.state === 'started') return watchBuild(q.build);
       if (q.state === 'cancelled') { setBusy(false); $('statusLine').textContent = 'The build was cancelled in Jenkins.'; return; }
       $('statusLine').textContent = q.why || 'Waiting for Jenkins to start the build…';
@@ -327,7 +327,7 @@ async function start(action) {
   renderStages({ action, stages: [], building: true });
   $('statusLine').textContent = 'Sending the request to Jenkins…';
   try {
-    const { queueId } = await get(`/api/${action}`, { method: 'POST' });
+    const { queueId } = await get(`api/${action}`, { method: 'POST' });
     if (queueId) watchQueue(queueId);
     else setTimeout(loadLast, 3000);
   } catch (e) {
@@ -342,7 +342,7 @@ async function start(action) {
 
 async function refreshSite() {
   try {
-    const s = await get('/api/app');
+    const s = await get('api/app');
     $('siteStatus').innerHTML = s.up ? '<span class="pill pill-ok"><i></i>Live</span>' : '<span class="pill pill-bad"><i></i>Not reachable</span>';
     $('siteVersion').textContent = s.version || '–';
     $('sitePod').textContent = s.pod || '–';
@@ -354,7 +354,7 @@ async function refreshSite() {
 
 async function loadLast() {
   try {
-    const { build } = await get('/api/last');
+    const { build } = await get('api/last');
     if (!build) { renderStages(null); return; }
     renderBuild(build);
     if (build.building) watchBuild(build.number);
@@ -365,7 +365,7 @@ async function loadLast() {
 }
 
 (async function init() {
-  try { cfg = await get('/api/config'); } catch { cfg = {}; }
+  try { cfg = await get('api/config'); } catch { cfg = {}; }
   appUrl = cfg.appPublicUrl || `${location.protocol}//${location.hostname}`;
   $('openBtn').href = appUrl;
   $('siteUrl').innerHTML = `<a href="${appUrl}" target="_blank" rel="noopener">${appUrl.replace(/^https?:\/\//, '')}</a>`;

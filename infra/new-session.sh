@@ -15,6 +15,14 @@ if [ -f /etc/shopsphere-panel.env ]; then
   sed -i "s|^APP_PUBLIC_URL=.*|APP_PUBLIC_URL=http://${IP}|" /etc/shopsphere-panel.env
   sed -i "s|^JENKINS_PUBLIC_URL=.*|JENKINS_PUBLIC_URL=http://${IP}:8080|" /etc/shopsphere-panel.env
   systemctl restart shopsphere-panel
+  # Re-publish the panel on port 80 at /deploy/ (points Traefik at this server's private IP, port 5000)
+  REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+  NODE_IP="$(hostname -I | awk '{print $1}')"
+  if [ -f "$REPO_DIR/k8s/panel-ingress.yaml" ]; then
+    kubectl apply -f "$REPO_DIR/k8s/namespace.yaml" >/dev/null
+    sed "s|NODE_IP|${NODE_IP}|g" "$REPO_DIR/k8s/panel-ingress.yaml" | kubectl apply -f - >/dev/null \
+      || echo "WARNING: could not apply k8s/panel-ingress.yaml"
+  fi
 else
   echo "WARNING: control panel not installed yet (run infra/install-control-panel.sh)."
 fi
@@ -47,13 +55,14 @@ status "Jenkins"           "curl -fs -m 3 -o /dev/null http://localhost:8080/log
 status "Kubernetes (k3s)"  "kubectl get nodes | grep -q ' Ready'"
 status "Shop website"      "curl -fs -m 3 http://localhost/api/health"
 status "Control panel"     "curl -fs -m 3 http://localhost:5000/api/config"
+status "Panel on port 80"  "curl -fs -m 3 http://localhost/deploy/api/config"
 
 cat <<EOF
 
 ==================================================================
  Addresses for this session
    Website (give to faculty):   http://${IP}
-   Deploy Now control panel:     http://${IP}:5000
+   Deploy Now control panel:     http://${IP}/deploy/   (backup: http://${IP}:5000)
    Jenkins:                      http://${IP}:8080
 
  ACTION NEEDED: update the GitHub webhook Payload URL to
