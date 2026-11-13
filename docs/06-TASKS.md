@@ -39,12 +39,12 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 - [x] Verify pods, ingress and `http://<ip>` (docs/05 A7).
 
 ## Phase 5 – One-click panel and webhook
-- [ ] Install the control panel (docs/05 A8). Check `/api/config` → `configured: true`, `/api/app` → `up: true`.
+- [x] Install the control panel (docs/05 A8). Check `/api/config` → `configured: true`, `/api/app` → `up: true`.
 - [x] Create the GitHub webhook (docs/05 A9). Check delivery: `gh api repos/butterfly0404/shopsphere/hooks/<id>/deliveries --jq '.[0].status_code'` → 200.
-- [ ] Student clicks **Deploy Now** on `http://<ip>/deploy/`; confirm six green stages and auto-open of `http://<ip>`.
+- [x] Student clicks **Deploy Now** on `http://<ip>/deploy/`; confirm six green stages and auto-open of `http://<ip>`.
 
 ## Phase 6 – Prove every requirement
-- [ ] Git trigger: change the hero subtitle, push, build starts without a click, footer version goes up.
+- [x] Git trigger: change the hero subtitle, push, build starts without a click, footer version goes up.
 - [ ] Safety: change `toBe(847)` to `toBe(848)` in `backend/tests/api.test.js`, push → pipeline stops at **Test**,
       `http://<ip>` still serves the previous version. Revert, push → green again.
 - [ ] Rollback: click **Rollback to previous version** on the panel → footer version goes back.

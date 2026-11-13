@@ -50,13 +50,13 @@
 - [x] Docker Hub shows `shopsphere:vN` and `:latest`
 - [x] `sudo kubectl -n shopsphere get pods` → 2 × shopsphere Running, 1 × mongo Running
 - [ ] `http://<ip>` opens the shop (port 80) and `http://<ip>:30080` also works
-- [ ] GitHub webhook shows a green tick; a `git push` starts a build without any click
+- [x] GitHub webhook shows a green tick; a `git push` starts a build without any click
 - [ ] A deliberately failing test stops the pipeline at **Test** and the live site keeps working
 - [ ] Data survives a redeploy (orders still there after a new version rolls out)
 
 ### Control panel
 - [ ] `http://<ip>/deploy/` (and backup `http://<ip>:5000`) loads, shows "Live" status, version and pod
-- [ ] **Deploy Now** → stages light up live → success banner → site opens automatically after 5 s
+- [x] **Deploy Now** → stages light up live → success banner → site opens automatically after 5 s
 - [ ] **Rollback to previous version** works and the footer version goes back
 - [ ] After a new Learner Lab session, `sudo bash infra/new-session.sh` brings everything back with the new IP
 
