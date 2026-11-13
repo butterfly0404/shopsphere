@@ -51,7 +51,7 @@
 - [x] `sudo kubectl -n shopsphere get pods` → 2 × shopsphere Running, 1 × mongo Running
 - [x] `http://<ip>` opens the shop (port 80) and `http://<ip>:30080` also works
 - [x] GitHub webhook shows a green tick; a `git push` starts a build without any click
-- [ ] A deliberately failing test stops the pipeline at **Test** and the live site keeps working
+- [x] A deliberately failing test stops the pipeline at **Test** and the live site keeps working
 - [ ] Data survives a redeploy (orders still there after a new version rolls out)
 
 ### Control panel

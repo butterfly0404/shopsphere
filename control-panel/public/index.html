@@ -208,15 +208,19 @@ function renderStages(build) {
   const byName = Object.fromEntries((build?.stages || []).map((s) => [s.name, s]));
   const finished = build && !build.building;
   let done = 0;
+  let failedSeen = false; // Jenkins reports stages skipped after a failure as FAILED too; show them as skipped
   $('stages').innerHTML = list.map((st, i) => {
     const s = byName[st.name];
     let cls = 'pending', icon = i + 1, time = '';
     if (s) {
       if (s.status === 'SUCCESS') { cls = 'done'; icon = '✓'; done++; }
       else if (s.status === 'IN_PROGRESS' || s.status === 'PAUSED_PENDING_INPUT') { cls = 'running'; icon = '…'; }
-      else if (['FAILED', 'UNSTABLE', 'ABORTED'].includes(s.status)) { cls = 'failed'; icon = '✕'; }
+      else if (['FAILED', 'UNSTABLE', 'ABORTED'].includes(s.status)) {
+        if (failedSeen) cls = 'skipped';
+        else { cls = 'failed'; icon = '✕'; failedSeen = true; }
+      }
       else if (s.status === 'NOT_EXECUTED' && finished) { cls = 'skipped'; }
-      time = s.durationMillis ? fmt(s.durationMillis) : '';
+      time = s.durationMillis && cls !== 'skipped' ? fmt(s.durationMillis) : '';
     } else if (finished) { cls = 'skipped'; }
     return `<div class="stage ${cls}"><div class="icon">${icon}</div><div><b>${st.name}</b><small>${st.desc}</small></div><span class="time">${cls === 'running' ? 'running' : time}</span></div>`;
   }).join('');

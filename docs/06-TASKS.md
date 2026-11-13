@@ -45,7 +45,7 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 
 ## Phase 6 – Prove every requirement
 - [x] Git trigger: change the hero subtitle, push, build starts without a click, footer version goes up.
-- [ ] Safety: change `toBe(847)` to `toBe(848)` in `backend/tests/api.test.js`, push → pipeline stops at **Test**,
+- [x] Safety: change `toBe(847)` to `toBe(848)` in `backend/tests/api.test.js`, push → pipeline stops at **Test**,
       `http://<ip>` still serves the previous version. Revert, push → green again.
 - [ ] Rollback: click **Rollback to previous version** on the panel → footer version goes back.
 - [ ] Persistence: place an order, deploy again, the order is still in My Orders.
