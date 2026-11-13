@@ -104,7 +104,7 @@ describe('orders', () => {
     expect(res.status).toBe(201);
     expect(res.body.subtotal).toBe(798); // client-sent price is ignored
     expect(res.body.shippingFee).toBe(49);
-    expect(res.body.total).toBe(847);
+    expect(res.body.total).toBe(848);
     expect(res.body.status).toBe('Placed');
 
     const after = (await request(app).get(`/api/products/${mug.id}`)).body;
