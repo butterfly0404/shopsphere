@@ -48,12 +48,12 @@ between sessions. After each phase, summarise for the student in 3–5 plain sen
 - [x] Safety: change `toBe(847)` to `toBe(848)` in `backend/tests/api.test.js`, push → pipeline stops at **Test**,
       `http://<ip>` still serves the previous version. Revert, push → green again.
 - [x] Rollback: click **Rollback to previous version** on the panel → footer version goes back.
-- [ ] Persistence: place an order, deploy again, the order is still in My Orders.
+- [x] Persistence: place an order, deploy again, the order is still in My Orders. (passed 13-11-2026: order 6af71745 survived the v8 redeploy)
 - [ ] Scaling demo: `sudo kubectl -n shopsphere scale deployment shopsphere --replicas=3`, refresh the site to see
       different pod names, then scale back to 2.
 - [ ] Tick every box in `docs/01-REQUIREMENTS.md` → Acceptance checklist.
 
-### Optional Phase 6B – Automate the Jenkins web-UI steps (only if the student asks)
+### Optional Phase 6B – Automate the Jenkins web-UI steps (only if the student asks) – SKIPPED by the student (16-11-2026)
 Goal: `sudo bash infra/configure-jenkins.sh` performs docs/05 A6 without clicks. Suggested approach, which you must test
 on the real server before relying on it:
 - systemd override for Jenkins: `Environment="JAVA_OPTS=-Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"`
@@ -67,6 +67,6 @@ on the real server before relying on it:
 Keep the manual path in docs/05 working as the fallback.
 
 ## Phase 7 – Hand-over
-- [ ] Update `README.md` with the final architecture and the student's run steps (keep it accurate to what was done).
+- [x] Update `README.md` with the final architecture and the student's run steps (keep it accurate to what was done).
 - [ ] Walk the student through `docs/07-DEMO-AND-TROUBLESHOOTING.md` once, end to end.
 - [ ] Remind the student: **End Lab** after each session; run docs/05 Part B at the start of the next one.

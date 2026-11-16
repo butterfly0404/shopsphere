@@ -37,7 +37,7 @@
 - [ ] Home, Shop (search, category, sort), Product, Cart, Checkout, My Orders, Login, Register, Admin pages work
 - [ ] Customer can register, add to cart, place an order (COD/UPI/Card demo), see it in My Orders
 - [ ] Admin (`admin@shopsphere.com`) can add/edit/delete products and change order status
-- [ ] Footer shows Version `vN`, pod name and "Database up"
+- [x] Footer shows Version `vN`, pod name and "Database up" (seen 13-11-2026)
 
 ### Infrastructure
 - [x] EC2 instance running in us-east-1, security group allows 22, 80, 8080, 5000
@@ -52,7 +52,7 @@
 - [x] `http://<ip>` opens the shop (port 80) and `http://<ip>:30080` also works
 - [x] GitHub webhook shows a green tick; a `git push` starts a build without any click
 - [x] A deliberately failing test stops the pipeline at **Test** and the live site keeps working
-- [ ] Data survives a redeploy (orders still there after a new version rolls out)
+- [x] Data survives a redeploy (orders still there after a new version rolls out) (13-11-2026: order 6af71745 kept after v8)
 
 ### Control panel
 - [x] `http://<ip>/deploy/` (and backup `http://<ip>:5000`) loads, shows "Live" status, version and pod
@@ -61,5 +61,5 @@
 - [ ] After a new Learner Lab session, `sudo bash infra/new-session.sh` brings everything back with the new IP
 
 ### Documentation
-- [ ] README has the student's names, the architecture, and the run steps
+- [x] README has the student's names, the architecture, and the run steps
 - [ ] `docs/07-DEMO-AND-TROUBLESHOOTING.md` rehearsed at least once end to end
